@@ -1,10 +1,10 @@
 'use server';
 import {getAllCompanions} from "@/lib/actions/companion.action";
 import CompanionCard from "@/components/CompanionCard";
-import {getSubjectColor} from "@/constants";
 import SearchInput from "@/components/SearchInput";
 import SubjectFilter from "@/components/SubjectFilter";
 import React from "react";
+import {getSubjectColor} from "@/constants/index";
 
 const CompanionsLibrary = async ({ searchParams }: SearchParams) => {
     const filters = await searchParams;
@@ -27,7 +27,7 @@ const CompanionsLibrary = async ({ searchParams }: SearchParams) => {
                     <CompanionCard
                         key={companion.id}
                         {...companion}
-                        color={getSubjectColor(companion.subject)}
+                        color = {getSubjectColor(companion.subject)}
                     />
                 ))}
             </section>
