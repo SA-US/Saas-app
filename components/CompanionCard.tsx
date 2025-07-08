@@ -28,7 +28,7 @@ const CompanionCard = ({id, name, topic, subject, duration, color}:
                 <Image src="/icons/clock.svg" alt="Clock" width={15} height={13.5}/>
                 <p className="text-sm">{duration}</p>
             </div>               
-            <Link href={`/companion/${id}`} className="w-full">
+            <Link href={`/companions/${id}`} className="w-full">
                 <button className="btn-primary w-full justify-center">
                     Start Session
                 </button>
