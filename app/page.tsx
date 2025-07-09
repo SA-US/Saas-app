@@ -1,54 +1,37 @@
+import CompanionCard from "@/components/CompanionCard";
+import CompanionsList from "@/components/CompanionsList";
+import CTA from "@/components/CTA";
+import {getAllCompanions, getRecentSessions} from "@/lib/actions/companion.action";
+import {getSubjectColor} from "@/lib/utils";
 
-import React from 'react'
-import CompanionCard from '@/components/CompanionCard'
-import CompanionsList from '@/components/CompanionsList'
-import CTA from '@/components/CTA'  
-import { subjectsColors, recentSessions } from '@/constants/index'
-const Page = () => {
+const Page = async () => {
+    const companions = await getAllCompanions({ limit: 3 });
+    const recentSessionsCompanions = await getRecentSessions(10);
+
   return (
     <main>
-      <h1 className='text-3xl font-bold'>Popular Companions</h1>
-<section className='home-section'>
-  <CompanionCard
-  id="1"
-  name="Neura the Brainy Expert"
-  topic = "Neural Network of the Brain"
-  subject = "science"
-  duration = "45 minutes"
-  color = "#E5D0FF"
-  />
-  <CompanionCard
-  id="2"
-  name="Verba the Vocabulary Builder"
-  topic = "English Literature"
-  subject = "language"
-  duration = "45 minutes"
-  color = "#BDE7FF"
-  />
-  <CompanionCard
-  id="3"
-  name="Countsy the Number Wizard"
-  topic = "Derivatives & Integrals"
-  subject = "maths"
-  duration = "30 minutes"
-  color = "#FFDA6E"
-  />
-</section>
+      <h1>Popular Companions</h1>
 
-<section className="home-section">
+        <section className="home-section">
+            {companions.map((companion) => (
+                <CompanionCard
+                    key={companion.id}
+                    {...companion}
+                    color={getSubjectColor(companion.subject)}
+                />
+            ))}
+
+        </section>
+
+        <section className="home-section">
             <CompanionsList
                 title="Recently completed sessions"
-                companions={recentSessions}
-                classNames="w-2/3 max-lg:w-full  "
-                color={subjectsColors.science}
-                
+                companions={recentSessionsCompanions}
+                classNames="w-2/3 max-lg:w-full"
             />
             <CTA />
         </section>
-
-
-     
-          </main>
+    </main>
   )
 }
 
